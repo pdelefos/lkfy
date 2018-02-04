@@ -1,11 +1,7 @@
+import express from "express"
 import userCtrl from "../controllers/user.controller"
+let router = express.Router()
 
-function registerUser(request, response) {
-  if (!request.body) return response.sendStatus(400)
-  userCtrl.createUser(request, response)
-  response.end()
-}
+router.route("/users").post(userCtrl.postUser)
 
-export default {
-  registerUser: registerUser
-}
+export default router

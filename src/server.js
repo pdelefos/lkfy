@@ -1,11 +1,13 @@
-import express from "express"
+import express, { urlencoded } from "express"
 import mongoose from "mongoose"
 
+const router = express.Router()
 const dbURL = "mongodb://127.0.0.1:27017/lkfy"
 
 // express config
 let app = express()
 let urlEncodedParser = express.urlencoded({ extended: false })
+app.use(urlEncodedParser)
 
 // mongodb config
 mongoose.connect(dbURL)
@@ -16,10 +18,10 @@ db.once("connected", function() {
 })
 
 // routes
-import userRoute from "./routes/user.route"
+import userRoutes from "./routes/user.route"
 
+router.use("/", userRoutes)
 app.get("/", (request, response) => response.send("hello mojo !"))
-app.post("/register", urlEncodedParser, userRoute.registerUser)
 
 // server config
 let server = app.listen(3000, () => {

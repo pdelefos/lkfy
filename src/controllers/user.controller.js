@@ -1,15 +1,10 @@
-import UserModel from "../models/user.model"
-import { error } from "util"
+import userService from "../services/user.service"
 
-function createUser(request, response) {
-  let newUser = request.body
-  return UserModel.create(newUser)
-    .then(data => console.log("coycoy", data))
-    .catch(err => console.error(simplifyError(err)))
+function postUser(request, response) {
+  userService
+    .createUser(request.body)
+    .then(data => console.log("success : ", data))
+    .catch(err => console.log(err))
 }
 
-function simplifyError(errorObj) {
-  return { code: errorObj.code, name: errorObj.name, msg: errorObj.message }
-}
-
-module.exports = { createUser: createUser }
+export default { postUser: postUser }
