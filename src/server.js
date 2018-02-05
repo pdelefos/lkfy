@@ -20,7 +20,7 @@ db.once("connected", function() {
 // routes
 import userRoutes from "./routes/user.route"
 
-router.use("/", userRoutes)
+app.use("/users", userRoutes)
 app.get("/", (request, response) => response.send("hello mojo !"))
 
 // server config
