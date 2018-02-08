@@ -1,13 +1,11 @@
-import userService from "../services/user.service"
+import UserModel from "../models/user.model"
 
 function postUser(request, response, next) {
-  userService
-    .createUser(request.body)
-    .then(data => {
-      console.log("success : ", data)
-      response.json({msg: "insert ok"})
-    })
-    .catch(err => next(err))
+  let newUser = new UserModel(request.body)
+  newUser
+    .save()
+    .then(success => next({ success, type: "UserCreateSuccess" }))
+    .catch(error => next({ error }))
 }
 
 export default { postUser: postUser }
